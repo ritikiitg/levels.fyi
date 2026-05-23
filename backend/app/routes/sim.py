@@ -7,6 +7,7 @@ them as fire-and-forget asyncio tasks against this very backend.
 from __future__ import annotations
 
 import asyncio
+import os
 import sys
 from pathlib import Path
 
@@ -43,6 +44,13 @@ def list_scenarios():
     }
 
 
+def _self_target() -> str:
+    """The URL the simulator should hit to reach THIS app instance.
+    Honors $PORT (set by Render and most PaaS). Defaults to 8000 for local."""
+    port = os.environ.get("PORT", "8000")
+    return f"http://127.0.0.1:{port}"
+
+
 @router.post("/api/dashboard/simulate")
 async def launch_attack(scenario: str, duration: float = 10.0, qps: float = 5.0):
     if scenario not in REGISTRY:
@@ -51,7 +59,7 @@ async def launch_attack(scenario: str, duration: float = 10.0, qps: float = 5.0)
         raise HTTPException(409, "scenario already running")
 
     cls = REGISTRY[scenario]
-    s = cls(target="http://127.0.0.1:8000", duration=duration, qps=qps)
+    s = cls(target=_self_target(), duration=duration, qps=qps)
 
     async def _run():
         try:
