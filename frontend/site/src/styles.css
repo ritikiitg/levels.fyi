@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: "Google Sans", "Inter", system-ui, sans-serif;
+  color: #121317;
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html, body { background: #ffffff; }
+
+body {
+  background:
+    radial-gradient(1200px circle at 10% -5%, rgba(66,133,244,0.05), transparent 55%),
+    radial-gradient(900px circle at 110% 0%, rgba(234,67,53,0.04), transparent 55%),
+    #ffffff;
+  background-attachment: fixed;
+}
+
+::-webkit-scrollbar       { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #000000; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #555; }
+
+.display { font-family: "Google Sans", Inter, system-ui, sans-serif; font-weight: 600; letter-spacing: -0.02em; }
+
+/* "this1" wordmark — matches this1.jpeg reference (Nunito Black, blue + orange) */
+.wordmark {
+  font-family: "Nunito", "Google Sans", system-ui, sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  display: inline-flex;
+}
+.wordmark .this { color: #1E5BEC !important; }
+.wordmark .one  { color: #F57C00 !important; }
+
+/* Card with hover-lift */
+.card {
+  background: #ffffff;
+  border: 1px solid #E8EAED;
+  border-radius: 14px;
+  transition: transform 220ms cubic-bezier(.2,.7,.3,1.2),
+              box-shadow 220ms ease,
+              border-color 220ms ease;
+  box-shadow: 0 1px 2px rgba(60,64,67,0.05);
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #DADCE0;
+  box-shadow: 0 4px 12px rgba(60,64,67,0.08), 0 12px 28px rgba(60,64,67,0.06);
+}
+
+.logo-glow {
+  filter: drop-shadow(0 2px 6px rgba(66,133,244,0.25));
+  animation: logo-pulse 5s ease-in-out infinite;
+}
+@keyframes logo-pulse {
+  0%, 100% { filter: drop-shadow(0 2px 6px rgba(66,133,244,0.20)); }
+  50%      { filter: drop-shadow(0 4px 12px rgba(234,67,53,0.28)); }
+}
+
+/* Honeypot link — invisible to humans, in DOM for bots */
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  top: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
